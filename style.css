@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=Passero+One&display=swap');
+* {
+    font-family: "Passero One", sans-serif;
+}
+
+body {
+  background: url('assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #fffaf2; /* fallback */
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.activity-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid #e2e8f0;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.activity-item:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: #cbd5e0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-slot {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid #e2e8f0;
+    background: white;
+    min-height: 60px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.timeline-slot.empty:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    background: #f7fafc;
+  }
+  50% {
+    background: #edf2f7;
+  }
+}
+
+.timeline-slot.filled {
+    cursor: pointer;
+    animation: popIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.timeline-slot.filled:hover {
+    transform: translateX(4px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.drop-zone.drag-over {
+    background: #edf2f7 !important;
+    border-color: #a0aec0 !important;
+    animation: bounce 0.6s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.03);
+  }
+}
+
+.stat-card {
+    border: 2px solid #e2e8f0;
+    background: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card:hover {
+    border-color: #cbd5e0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    border: 2px solid #e2e8f0;
+    background: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    border-color: #cbd5e0;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-edit {
+    border: 2px solid #4a90e2;
+    background: #4a90e2;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit:hover {
+    background: #357abd;
+    border-color: #357abd;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: #4a90e2;
+    color: white;
+    border-color: #4a90e2;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
+  }
+  to {
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6);
+  }
+}
+
+.btn-primary:hover {
+    background: #357abd;
+    border-color: #357abd;
+    transform: translateY(-2px) scale(1.05);
+}
+
+.time-period {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.time-period:hover {
+    transform: translateY(-1px);
+    background: #edf2f7;
+}
+
+.progress-bar {
+    background: #e2e8f0;
+    border: 2px solid #e2e8f0;
+    animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.progress-fill {
+    background: #4a90e2;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.template-btn {
+    border: 2px solid #e2e8f0;
+    background: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    animation: fadeInLeft 0.6s ease-out;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.template-btn:hover {
+    border-color: #cbd5e0;
+    background: #f7fafc;
+    transform: translateX(4px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    border: 2px solid #e2e8f0;
+    background: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.color-btn {
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: popIn 0.5s ease-out;
+}
+
+.color-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.color-btn.selected {
+    border-color: #4a90e2;
+    transform: scale(1.15) rotate(0);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    animation: bounce 0.5s ease;
+}
+
+.activity-count {
+    background: #4a90e2;
+    color: white;
+    border: 2px solid #4a90e2;
+    animation: popIn 0.4s ease-out;
+}
+
+/* Header animations */
+.text-center h1 {
+    animation: slideInDown 0.8s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-center p {
+    animation: fadeIn 1s ease-out 0.2s both;
+}
+
+/* Stats counter animations */
+.text-center > div {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Background SVG decorations */
+.bg-decoration {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.floating-shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 12s ease-in-out infinite;
+}
+
+.shape-1 {
+    top: 10%;
+    left: 5%;
+    width: 120px;
+    height: 120px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    top: 20%;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    bottom: 20%;
+    left: 10%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 4s;
+}
+
+.shape-4 {
+    bottom: 10%;
+    right: 20%;
+    width: 90px;
+    height: 90px;
+    animation-delay: 6s;
+}
+
+.shape-5 {
+    top: 40%;
+    left: 25%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 8s;
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg) scale(1);
+    }
+    33% { 
+        transform: translateY(-20px) rotate(3deg) scale(1.05);
+    }
+    66% { 
+        transform: translateY(-10px) rotate(-2deg) scale(0.95);
+    }
+}
+
+/* Responsive timeline */
+@media (max-width: 1024px) {
+    .timeline-slot {
+        min-height: 50px;
+        padding: 0.75rem;
+    }
+    
+    .time-marker {
+        font-size: 0.75rem;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-slot {
+        min-height: 45px;
+        padding: 0.5rem;
+    }
+    
+    .time-marker {
+        font-size: 0.7rem;
+        min-width: 50px;
+    }
+    
+    .activity-item {
+        padding: 0.75rem;
+    }
+    
+    .floating-shape {
+        width: 60px !important;
+        height: 60px !important;
+    }
+}
+
+/* Compact timeline view for mobile */
+.timeline-compact {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Smooth scrolling */
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* Edit activity form styles */
+.edit-activity-item {
+    border: 2px solid #e2e8f0;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    animation: slideInUp 0.5s ease-out;
+}
+
+.edit-activity-color {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-activity-color:hover {
+    transform: scale(1.1);
+}
+
+/* Ensure Font Awesome icons show */
+.fas, .fab, .far {
+    display: inline-block;
+}
+
+/* Number counter animation */
+.counter-animate {
+    animation: countUp 0.8s ease-out;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Success animation */
+.success-animation {
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Loading states */
+.loading {
+    animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}

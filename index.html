@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perfect-day</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="max-w-6xl mx-auto relative z-10">
+        <!-- Header -->
+        <div class="text-center my-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Daily Planner
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+                Plan your perfect day with simple drag and drop
+            </p>
+            
+            <!-- Quick Stats -->
+            <div class="flex items-center justify-center gap-6 mb-6 flex-wrap">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-800">24</div>
+                    <div class="text-gray-500 text-sm">Total Hours</div>
+                </div>
+                <div class="w-px h-8 bg-gray-300"></div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600" id="hoursUsed">0</div>
+                    <div class="text-gray-500 text-sm">Hours Used</div>
+                </div>
+                <div class="w-px h-8 bg-gray-300"></div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600" id="hoursFree">24</div>
+                    <div class="text-gray-500 text-sm">Hours Free</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid p-2 lg:grid-cols-4 gap-6">
+            <!-- Activity Palette -->
+            <div class="lg:col-span-1">
+                <!-- Activities Section -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800">Activities</h2>
+                        <div class="flex gap-2">
+                            <button id="editActivitiesBtn" class="btn-edit px-3 py-2 text-sm" title="Edit Activities">
+                                <i class="fas fa-edit text-white"></i>
+                            </button>
+                            <button id="addCustomBtn" class="btn px-3 py-2 text-sm">
+                                <i class="fas fa-plus mr-1"></i>Add
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-3" id="activityPalette">
+                        <!-- Activities will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="lg:col-span-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Daily Schedule</h2>
+                    <div class="flex items-center gap-2">
+                        <div class="text-gray-500 text-sm">
+                            <i class="fas fa-clock mr-1"></i>24 Hours
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Container with Compact View -->
+                <div class="bg-white border-2 border-gray-200 rounded-lg p-4 timeline-compact smooth-scroll">
+                    <div class="grid grid-cols-1 gap-2" id="timeline">
+                        <!-- Timeline slots will be dynamically added here -->
+                    </div>
+
+                    <!-- Time Period Indicators -->
+                    <div class="mt-4 grid grid-cols-5 gap-2 text-xs">
+                        <div class="time-period text-center py-2 rounded">
+                            <div class="font-semibold">Early</div>
+                            <div class="text-gray-500">6AM-9AM</div>
+                        </div>
+                        <div class="time-period text-center py-2 rounded">
+                            <div class="font-semibold">Morning</div>
+                            <div class="text-gray-500">9AM-12PM</div>
+                        </div>
+                        <div class="time-period text-center py-2 rounded">
+                            <div class="font-semibold">Afternoon</div>
+                            <div class="text-gray-500">12PM-5PM</div>
+                        </div>
+                        <div class="time-period text-center py-2 rounded">
+                            <div class="font-semibold">Evening</div>
+                            <div class="text-gray-500">5PM-9PM</div>
+                        </div>
+                        <div class="time-period text-center py-2 rounded">
+                            <div class="font-semibold">Night</div>
+                            <div class="text-gray-500">9PM-6AM</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stats & Progress -->
+                <div class="space-y-4 mt-4">
+                    <div class="stat-card p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-3">Progress</h3>
+                        
+                        <!-- Progress Bar -->
+                        <div class="mb-3">
+                            <div class="progress-bar h-4 rounded-full overflow-hidden">
+                                <div id="progressFill" class="progress-fill h-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-lg font-bold" id="activitiesCount">0</div>
+                                <div class="text-gray-500 text-xs">Activities</div>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-lg font-bold" id="efficiencyScore">0%</div>
+                                <div class="text-gray-500 text-xs">Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Templates -->
+                    <div class="stat-card p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-3">Quick Start</h3>
+                        <div class="space-y-2">
+                            <button class="template-btn w-full px-3 py-3 rounded-lg text-left" data-template="productive">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-sm">Productive Day</div>
+                                        <div class="text-gray-500 text-xs">Work-focused schedule</div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400"></i>
+                                </div>
+                            </button>
+                            <button class="template-btn w-full px-3 py-3 rounded-lg text-left" data-template="balanced">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-sm">Balanced Day</div>
+                                        <div class="text-gray-500 text-xs">Work-life balance</div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400"></i>
+                                </div>
+                            </button>
+                            <button class="template-btn w-full px-3 py-3 rounded-lg text-left" data-template="creative">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-sm">Creative Day</div>
+                                        <div class="text-gray-500 text-xs">Focus on innovation</div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 mt-6">
+                    <button 
+                        id="clearAllBtn"
+                        class="btn px-2 py-3 rounded-lg flex-1"
+                    >
+                        <i class="fas fa-eraser mr-2"></i>Clear All
+                    </button>
+                    <button 
+                        id="exportBtn"
+                        class="btn px-2 py-3 rounded-lg flex-1"
+                    >
+                        <i class="fas fa-download mr-2"></i>Export Plan
+                    </button>
+                    <button 
+                        id="saveDayBtn"
+                        class="btn btn-primary px-2 py-3 rounded-lg flex-1"
+                    >
+                        <i class="fas fa-check mr-2"></i>Save Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Activity Modal -->
+    <div id="customModal" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4">
+        <div class="modal-content rounded-lg p-6 max-w-md w-full">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Create New Activity</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-600 text-sm font-medium mb-2">Activity Name</label>
+                    <input id="customName" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Enter activity name">
+                </div>
+                <div>
+                    <label class="block text-gray-600 text-sm font-medium mb-2">Duration (Hours)</label>
+                    <input id="customDuration" type="number" min="1" max="8" value="1" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-600 text-sm font-medium mb-2">Color Theme</label>
+                    <div class="grid grid-cols-5 gap-2">
+                        <button class="color-btn w-full h-10 bg-blue-400 rounded-lg" data-color="bg-blue-400"></button>
+                        <button class="color-btn w-full h-10 bg-green-400 rounded-lg" data-color="bg-green-400"></button>
+                        <button class="color-btn w-full h-10 bg-yellow-400 rounded-lg" data-color="bg-yellow-400"></button>
+                        <button class="color-btn w-full h-10 bg-purple-400 rounded-lg" data-color="bg-purple-400"></button>
+                        <button class="color-btn w-full h-10 bg-pink-400 rounded-lg" data-color="bg-pink-400"></button>
+                    </div>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button id="cancelCustomBtn" class="btn flex-1 px-4 py-2 rounded-lg font-medium">
+                        Cancel
+                    </button>
+                    <button id="saveCustomBtn" class="btn btn-primary flex-1 px-4 py-2 rounded-lg font-medium">
+                        Create Activity
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Activities Modal -->
+    <div id="editActivitiesModal" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4">
+        <div class="modal-content rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Edit Default Activities</h3>
+            <div class="space-y-4" id="editActivitiesList">
+                <!-- Activities edit form will be added here -->
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button id="cancelEditBtn" class="btn flex-1 px-4 py-2 rounded-lg font-medium">
+                    Cancel
+                </button>
+                <button id="saveEditBtn" class="btn btn-primary flex-1 px-4 py-2 rounded-lg font-medium">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm mt-16 mb-6 z-10">
+      Developed by <span class="font-semibold"><a href="https://devolabanks.vercel.app" target="_blank">Dev Olabanks</a></span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
